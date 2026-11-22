@@ -1,0 +1,57 @@
+[
+  {
+    "slug": "426-north-st-murphysboro",
+    "address": "426 North St",
+    "city": "Murphysboro",
+    "state": "IL",
+    "zip": "62966",
+    "county": "Jackson County",
+    "status": "Available",
+    "beds": "1",
+    "baths": "1 full",
+    "sqft": "534",
+    "propertyType": "Single-family",
+    "yearBuilt": "1916",
+    "lotAcres": "0.23",
+    "lotSqft": "10018",
+    "siding": "Vinyl",
+    "waterSewer": "Public",
+    "purchasePrice": "57750",
+    "downPayment": "2500",
+    "amountFinanced": "55250",
+    "interestRate": "11.99%",
+    "monthlyPayment": "681.19",
+    "annualPropertyTax": "1359.75",
+    "summaryPdf": "/documents/426-north-st-purchase-summary.pdf",
+    "paymentOptions": [
+      {
+        "label": "30 years",
+        "payments": 360,
+        "principalAndInterest": "567.88",
+        "propertyTax": "113.31",
+        "total": "681.19"
+      },
+      {
+        "label": "25 years",
+        "payments": 300,
+        "principalAndInterest": "581.50",
+        "propertyTax": "113.31",
+        "total": "694.81"
+      },
+      {
+        "label": "20 years",
+        "payments": 240,
+        "principalAndInterest": "607.96",
+        "propertyTax": "113.31",
+        "total": "721.27"
+      }
+    ],
+    "description": "This is a single-family house at 426 North Street in Murphysboro, in Jackson County. It was built in 1916. It has 1 bedroom, 1 full bath, and 534 square feet, on a lot of about 0.23 acre. The siding is vinyl, and water and sewer are public. Photos are not posted yet.\n\nSeller financing is available. The price and the monthly choices below come from our Home Purchase Summary. They are here so you can read them before you call. They are not a contract. Asking about the home does not reserve it, and it does not mean you are approved.",
+    "photos": [
+      {
+        "src": "/images/photo-coming-soon.svg",
+        "alt": "Illustration that says photos are coming soon. Real photos of 426 North St in Murphysboro have not been added yet."
+      }
+    ]
+  }
+]
