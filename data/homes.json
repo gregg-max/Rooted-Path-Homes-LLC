@@ -1,0 +1,23 @@
+[
+  {
+    "slug": "426-north-st-murphysboro",
+    "address": "426 North St",
+    "city": "Murphysboro",
+    "state": "IL",
+    "zip": "62966",
+    "status": "Available",
+    "beds": "TBD",
+    "baths": "TBD",
+    "sqft": "TBD",
+    "purchasePrice": "TBD",
+    "downPayment": "TBD",
+    "monthlyPayment": "TBD",
+    "description": "This is our home at 426 North Street in Murphysboro. Photos, the size of the house, and the owner-financing numbers are not posted yet. When you see TBD, that is on purpose. We will not guess at a price, a payment, or a room count on this page.\n\nIf this address is one you want to know about, call us or send a note. We will tell you what we know, walk you through the house, and go over the terms once they are set. Nothing on this page is an offer. Asking about the home does not reserve it, and it does not mean you are approved.",
+    "photos": [
+      {
+        "src": "/images/photo-coming-soon.svg",
+        "alt": "Illustration that says photos are coming soon. Real photos of 426 North St in Murphysboro have not been added yet."
+      }
+    ]
+  }
+]

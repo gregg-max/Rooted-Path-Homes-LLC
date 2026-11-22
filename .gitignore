@@ -1,0 +1,12 @@
+node_modules
+.next
+.data
+out
+.vercel
+.env
+.env.local
+.env*.local
+!.env.example
+*.log
+.DS_Store
+tsconfig.tsbuildinfo
