@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { formatFact, isTbd } from "@/lib/format";
+import { cardMoney, formatFact, isTbd } from "@/lib/format";
 import { fullAddress, type Home } from "@/lib/homes";
 
 const FACTS: { key: keyof Home; label: string }[] = [
@@ -51,7 +51,7 @@ export function HomeCard({ home, featured = false }: { home: Home; featured?: bo
                       <small>Not posted yet</small>
                     </>
                   ) : (
-                    formatFact(fact.label, raw)
+                    cardMoney(fact.label, raw)
                   )}
                 </dd>
               </div>

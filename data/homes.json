@@ -5,14 +5,42 @@
     "city": "Murphysboro",
     "state": "IL",
     "zip": "62966",
+    "county": "Jackson County",
     "status": "Available",
     "beds": "TBD",
     "baths": "TBD",
     "sqft": "TBD",
-    "purchasePrice": "TBD",
-    "downPayment": "TBD",
-    "monthlyPayment": "TBD",
-    "description": "This is our home at 426 North Street in Murphysboro. Photos, the size of the house, and the owner-financing numbers are not posted yet. When you see TBD, that is on purpose. We will not guess at a price, a payment, or a room count on this page.\n\nIf this address is one you want to know about, call us or send a note. We will tell you what we know, walk you through the house, and go over the terms once they are set. Nothing on this page is an offer. Asking about the home does not reserve it, and it does not mean you are approved.",
+    "purchasePrice": "57750",
+    "downPayment": "2500",
+    "amountFinanced": "55250",
+    "interestRate": "11.99%",
+    "monthlyPayment": "681.19",
+    "annualPropertyTax": "1359.75",
+    "summaryPdf": "/documents/426-north-st-purchase-summary.pdf",
+    "paymentOptions": [
+      {
+        "label": "30 years",
+        "payments": 360,
+        "principalAndInterest": "567.88",
+        "propertyTax": "113.31",
+        "total": "681.19"
+      },
+      {
+        "label": "25 years",
+        "payments": 300,
+        "principalAndInterest": "581.50",
+        "propertyTax": "113.31",
+        "total": "694.81"
+      },
+      {
+        "label": "20 years",
+        "payments": 240,
+        "principalAndInterest": "607.96",
+        "propertyTax": "113.31",
+        "total": "721.27"
+      }
+    ],
+    "description": "This is 426 North Street in Murphysboro, in Jackson County. Seller financing is available. Photos, bedrooms, bathrooms, and square feet are not posted yet. Where you see TBD, we do not have that fact, and we will not guess.\n\nThe price and the monthly choices on this page come from our Home Purchase Summary. They are here so you can read them before you call. They are not a contract. Asking about the home does not reserve it, and it does not mean you are approved.",
     "photos": [
       {
         "src": "/images/photo-coming-soon.svg",

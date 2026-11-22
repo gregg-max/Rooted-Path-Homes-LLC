@@ -3,9 +3,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FactList, StatusBadge } from "@/components/HomeCard";
+import { HomeTerms } from "@/components/HomeTerms";
 import { Gallery } from "@/components/Gallery";
 import { LeadForm } from "@/components/LeadForm";
 import { MOVE_TIMELINES } from "@/lib/forms";
+import { formatMoney, isTbd } from "@/lib/format";
 import { fullAddress, getHome, getHomes, mapsUrl } from "@/lib/homes";
 import { getSiteUrl } from "@/lib/site";
 
@@ -22,7 +24,10 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const home = getHome(slug);
   if (!home) return { title: "Home" };
   const title = `${home.address}, ${home.city}`;
-  const description = `${fullAddress(home)}. Owner financing with Rooted Path Homes. Price, down payment, monthly payment, and home details are shown only when we have real numbers. Status: ${home.status}.`;
+  const priced = !isTbd(home.purchasePrice) && !isTbd(home.monthlyPayment);
+  const description = priced
+    ? `${fullAddress(home)}. Owner financing from Rooted Path Homes. Purchase price ${formatMoney(home.purchasePrice)}, ${formatMoney(home.downPayment)} down, monthly payments from ${formatMoney(home.monthlyPayment)}. Bedrooms, bathrooms, and square feet are not posted yet.`
+    : `${fullAddress(home)}. Owner financing with Rooted Path Homes. Price, down payment, and monthly payment are shown only when we have real numbers. Status: ${home.status}.`;
   return {
     title,
     description,
@@ -51,6 +56,19 @@ export default async function HomeDetailPage({ params }: { params: Promise<Param
       postalCode: home.zip,
       addressCountry: "US",
     },
+    ...(isTbd(home.purchasePrice)
+      ? {}
+      : {
+          offers: {
+            "@type": "Offer",
+            price: home.purchasePrice.replace(/[$,]/g, ""),
+            priceCurrency: "USD",
+            availability:
+              home.status === "Sold"
+                ? "https://schema.org/SoldOut"
+                : "https://schema.org/InStock",
+          },
+        }),
   };
 
   return (
@@ -72,6 +90,7 @@ export default async function HomeDetailPage({ params }: { params: Promise<Param
             <h1 className="detail-title">{home.address}</h1>
             <p className="card-address" style={{ fontSize: "1.1rem" }}>
               {home.city}, {home.state} {home.zip}
+              {home.county ? ` · ${home.county}` : ""}
             </p>
             <p>
               <a className="map-link" href={mapsUrl(home)} target="_blank" rel="noopener noreferrer">
@@ -79,7 +98,37 @@ export default async function HomeDetailPage({ params }: { params: Promise<Param
               </a>
             </p>
           </div>
-          <FactList home={home} />
+          {home.paymentOptions?.length ? (
+            <>
+              <HomeTerms home={home} />
+              <dl className="facts">
+                {(
+                  [
+                    ["Bedrooms", home.beds],
+                    ["Bathrooms", home.baths],
+                    ["Square feet", home.sqft],
+                  ] as const
+                ).map(([label, value]) => (
+                  <div className="fact" key={label}>
+                    <dt>{label}</dt>
+                    <dd className={isTbd(value) ? "is-tbd" : undefined}>
+                      {isTbd(value) ? (
+                        <>
+                          <span className="sr-only">Not posted yet. </span>
+                          TBD
+                          <small>Not posted yet</small>
+                        </>
+                      ) : (
+                        value
+                      )}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </>
+          ) : (
+            <FactList home={home} />
+          )}
           <div className="prose">
             {paragraphs.map((paragraph) => (
               <p key={paragraph.slice(0, 24)}>{paragraph}</p>

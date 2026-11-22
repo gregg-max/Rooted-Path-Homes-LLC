@@ -10,7 +10,7 @@ The GitHub repository is public. Do not put passwords, form keys, or private pap
 
 The menu is: Find a Home, How It Works, Helpful Guides, Fixer-Uppers, Sell Us Your House, Our Story, Let's Talk, and a copper **Book a Tour** button. The phone number in the header can be tapped on a phone.
 
-There is one home to start: 426 North St, Murphysboro, IL 62966. The price, down payment, monthly payment, beds, baths, square feet, and photos say **TBD** or show a "photos coming soon" picture. That is on purpose. The site will not invent numbers.
+There is one home to start: 426 North St, Murphysboro, IL 62966. The purchase price, down payment, and monthly choices are filled in from the Home Purchase Summary. Bedrooms, bathrooms, square feet, and photos still say **TBD** or show a "photos coming soon" picture, because those facts were not in the summary. The site will not invent them.
 
 ## Add or edit a home
 
@@ -31,7 +31,10 @@ The easiest way to edit it, once the site is connected to GitHub:
 - **slug** is the web address for that house. Use lowercase words and dashes, like `426-north-st-murphysboro`. Each house needs its own slug. Don't change a slug after you've shared the link, or the old link will stop working.
 - **address, city, state, zip** are the real address.
 - **status** must be exactly one of these three words: `Available`, `Pending`, or `Sold`. The capitals matter.
-- **beds, baths, sqft, purchasePrice, downPayment, monthlyPayment** are the facts under the photo. If you do not know one yet, leave `TBD`. Do not guess. When you do know a price or payment, replace `TBD` with the digits, like `150000`. The site will show a dollar sign for the price, the down payment, and the monthly payment. You can also type `$150,000` if you prefer.
+- **beds, baths, sqft, purchasePrice, downPayment, monthlyPayment** are the facts under the photo. If you do not know one yet, leave `TBD`. Do not guess. When you do know a price or payment, replace `TBD` with the digits, like `57750` or `681.19`. The site adds the dollar sign. On the home cards, the down payment reads as "$2,500 down" and the monthly figure reads as "from $681.19/mo", using whatever numbers you typed. `monthlyPayment` should be the lowest monthly total, the one you want "from" to mean.
+- **amountFinanced, interestRate, annualPropertyTax, county** are optional. Leave them out if you do not have them.
+- **paymentOptions** is optional. It is the table on the house page: each choice has a label (like `30 years`), the number of payments, principal and interest, the monthly property tax, and the total. Copy the block from 426 North Street and change the numbers. If you leave this block out, the page just shows the simple facts.
+- **summaryPdf** is optional. If you have a one-page summary, put the file in `public/documents` and set this to the path, like `/documents/426-north-st-purchase-summary.pdf`. The phone number printed on that PDF has to be the same number as the website.
 - **description** is the paragraph on the house page. Blank lines between paragraphs are fine. Write what you actually know.
 - **photos** is a list of pictures. The first one is the picture on Find a Home.
 

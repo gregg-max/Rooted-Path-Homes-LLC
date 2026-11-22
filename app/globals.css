@@ -529,6 +529,88 @@ a:hover {
   color: var(--muted);
 }
 
+.terms h2,
+.terms h3 {
+  color: var(--forest);
+}
+
+.terms h3 {
+  margin: 1.4rem 0 0.6rem;
+  font-size: 1.35rem;
+}
+
+.pay-scroll {
+  overflow-x: auto;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+
+.pay-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  min-width: 320px;
+}
+
+.pay-table caption {
+  caption-side: bottom;
+  text-align: left;
+  padding: 0.75rem 0.8rem 0.9rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.pay-table th,
+.pay-table td {
+  padding: 0.7rem 0.55rem;
+  border-bottom: 1px solid var(--line);
+  text-align: right;
+  vertical-align: bottom;
+}
+
+.pay-table thead th {
+  color: var(--forest);
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.pay-table tbody th {
+  text-align: left;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.pay-total th,
+.pay-total td {
+  background: var(--sage);
+  color: var(--forest);
+  font-weight: 700;
+}
+
+.term-notes {
+  margin: 0.4rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.term-notes li {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.75rem 0.9rem;
+}
+
+.summary-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  font-weight: 700;
+}
+
 .steps {
   display: grid;
   gap: 0.8rem;

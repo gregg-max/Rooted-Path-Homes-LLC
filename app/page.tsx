@@ -70,8 +70,8 @@ export default function HomePage() {
           <p className="eyebrow">Right now</p>
           <h2 id="featured-heading">The home we have to show you</h2>
           <p className="lede">
-            We post a house when we actually have it. There is one on the site today. Photos and
-            owner-financing numbers will show up here when they are real.
+            We post a house when we actually have it. There is one on the site today, with the
+            owner-financing numbers filled in. Photos and the size of the house are still on the way.
           </p>
           <div className="stack" style={{ marginTop: "1.25rem" }}>
             {featured ? (

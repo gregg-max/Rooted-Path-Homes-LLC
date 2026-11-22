@@ -8,19 +8,33 @@ export type HomePhoto = {
   alt: string;
 };
 
+export type PaymentOption = {
+  label: string;
+  payments: number;
+  principalAndInterest: string;
+  propertyTax: string;
+  total: string;
+};
+
 export type Home = {
   slug: string;
   address: string;
   city: string;
   state: string;
   zip: string;
+  county?: string;
   status: HomeStatus;
   beds: string;
   baths: string;
   sqft: string;
   purchasePrice: string;
   downPayment: string;
+  amountFinanced?: string;
+  interestRate?: string;
   monthlyPayment: string;
+  annualPropertyTax?: string;
+  summaryPdf?: string;
+  paymentOptions?: PaymentOption[];
   description: string;
   photos: HomePhoto[];
 };

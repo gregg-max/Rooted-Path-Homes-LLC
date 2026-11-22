@@ -8,7 +8,7 @@ import { getHomes } from "@/lib/homes";
 export const metadata: Metadata = {
   title: "Find a Home",
   description:
-    "Homes Rooted Path Homes is selling with owner financing in southern Illinois. One house is posted today, at 426 North St in Murphysboro. Numbers say TBD until they are real.",
+    "Homes Rooted Path Homes is selling with owner financing in southern Illinois. 426 North St in Murphysboro is $57,750, with $2,500 down and monthly payments from $681.19. Bedrooms, bathrooms, and square feet are not posted yet.",
   alternates: { canonical: "/homes" },
 };
 
