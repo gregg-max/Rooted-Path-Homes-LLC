@@ -7,9 +7,15 @@
     "zip": "62966",
     "county": "Jackson County",
     "status": "Available",
-    "beds": "TBD",
-    "baths": "TBD",
-    "sqft": "TBD",
+    "beds": "1",
+    "baths": "1 full",
+    "sqft": "534",
+    "propertyType": "Single-family",
+    "yearBuilt": "1916",
+    "lotAcres": "0.23",
+    "lotSqft": "10018",
+    "siding": "Vinyl",
+    "waterSewer": "Public",
     "purchasePrice": "57750",
     "downPayment": "2500",
     "amountFinanced": "55250",
@@ -40,7 +46,7 @@
         "total": "721.27"
       }
     ],
-    "description": "This is 426 North Street in Murphysboro, in Jackson County. Seller financing is available. Photos, bedrooms, bathrooms, and square feet are not posted yet. Where you see TBD, we do not have that fact, and we will not guess.\n\nThe price and the monthly choices on this page come from our Home Purchase Summary. They are here so you can read them before you call. They are not a contract. Asking about the home does not reserve it, and it does not mean you are approved.",
+    "description": "This is a single-family house at 426 North Street in Murphysboro, in Jackson County. It was built in 1916. It has 1 bedroom, 1 full bath, and 534 square feet, on a lot of about 0.23 acre. The siding is vinyl, and water and sewer are public. Photos are not posted yet.\n\nSeller financing is available. The price and the monthly choices below come from our Home Purchase Summary. They are here so you can read them before you call. They are not a contract. Asking about the home does not reserve it, and it does not mean you are approved.",
     "photos": [
       {
         "src": "/images/photo-coming-soon.svg",

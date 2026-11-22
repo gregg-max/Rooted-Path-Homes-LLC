@@ -27,6 +27,12 @@ export type Home = {
   beds: string;
   baths: string;
   sqft: string;
+  propertyType?: string;
+  yearBuilt?: string;
+  lotAcres?: string;
+  lotSqft?: string;
+  siding?: string;
+  waterSewer?: string;
   purchasePrice: string;
   downPayment: string;
   amountFinanced?: string;

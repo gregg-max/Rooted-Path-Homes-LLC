@@ -529,9 +529,15 @@ a:hover {
   color: var(--muted);
 }
 
+.facts-heading,
 .terms h2,
 .terms h3 {
   color: var(--forest);
+}
+
+.facts-heading {
+  margin: 0 0 0.75rem;
+  font-size: 1.7rem;
 }
 
 .terms h3 {

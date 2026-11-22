@@ -11,6 +11,62 @@ import { formatMoney, isTbd } from "@/lib/format";
 import { fullAddress, getHome, getHomes, mapsUrl } from "@/lib/homes";
 import { getSiteUrl } from "@/lib/site";
 
+function parseCount(value: string | undefined) {
+  if (!value || isTbd(value)) return null;
+  const match = value.match(/\d[\d,]*/);
+  if (!match) return null;
+  const number = Number(match[0].replace(/,/g, ""));
+  return Number.isFinite(number) ? number : null;
+}
+
+function HouseFacts({ home }: { home: ReturnType<typeof getHome> }) {
+  if (!home) return null;
+  const lot =
+    home.lotAcres && home.lotSqft
+      ? `${home.lotAcres} acre (about ${Number(home.lotSqft).toLocaleString("en-US")} sq ft)`
+      : home.lotAcres
+        ? `${home.lotAcres} acre`
+        : null;
+  const rows: { label: string; value: string }[] = [
+    { label: "Bedrooms", value: home.beds },
+    { label: "Bathrooms", value: home.baths },
+    {
+      label: "Square feet",
+      value: parseCount(home.sqft)?.toLocaleString("en-US") ?? home.sqft,
+    },
+    ...(home.propertyType ? [{ label: "Home type", value: home.propertyType }] : []),
+    ...(home.yearBuilt ? [{ label: "Year built", value: home.yearBuilt }] : []),
+    ...(lot ? [{ label: "Lot", value: lot }] : []),
+    ...(home.siding ? [{ label: "Siding", value: home.siding }] : []),
+    ...(home.waterSewer ? [{ label: "Water and sewer", value: home.waterSewer }] : []),
+  ];
+  return (
+    <section aria-labelledby="house-facts-heading">
+      <h2 id="house-facts-heading" className="facts-heading">
+        The house
+      </h2>
+      <dl className="facts">
+        {rows.map((row) => (
+          <div className="fact" key={row.label}>
+            <dt>{row.label}</dt>
+            <dd className={isTbd(row.value) ? "is-tbd" : undefined}>
+              {isTbd(row.value) ? (
+                <>
+                  <span className="sr-only">Not posted yet. </span>
+                  TBD
+                  <small>Not posted yet</small>
+                </>
+              ) : (
+                row.value
+              )}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  );
+}
+
 type Params = { slug: string };
 
 export function generateStaticParams() {
@@ -25,8 +81,9 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   if (!home) return { title: "Home" };
   const title = `${home.address}, ${home.city}`;
   const priced = !isTbd(home.purchasePrice) && !isTbd(home.monthlyPayment);
+  const sized = !isTbd(home.beds) && !isTbd(home.baths) && !isTbd(home.sqft);
   const description = priced
-    ? `${fullAddress(home)}. Owner financing from Rooted Path Homes. Purchase price ${formatMoney(home.purchasePrice)}, ${formatMoney(home.downPayment)} down, monthly payments from ${formatMoney(home.monthlyPayment)}. Bedrooms, bathrooms, and square feet are not posted yet.`
+    ? `${fullAddress(home)}. ${sized ? `${home.beds} bedroom, ${home.baths} bath, ${Number(home.sqft).toLocaleString("en-US")} sq ft. ` : ""}Owner financing from Rooted Path Homes. Purchase price ${formatMoney(home.purchasePrice)}, ${formatMoney(home.downPayment)} down, monthly payments from ${formatMoney(home.monthlyPayment)}.`
     : `${fullAddress(home)}. Owner financing with Rooted Path Homes. Price, down payment, and monthly payment are shown only when we have real numbers. Status: ${home.status}.`;
   return {
     title,
@@ -56,6 +113,19 @@ export default async function HomeDetailPage({ params }: { params: Promise<Param
       postalCode: home.zip,
       addressCountry: "US",
     },
+    ...(parseCount(home.beds) == null ? {} : { numberOfBedrooms: parseCount(home.beds) }),
+    ...(parseCount(home.baths) == null ? {} : { numberOfBathroomsTotal: parseCount(home.baths) }),
+    ...(parseCount(home.sqft) == null
+      ? {}
+      : {
+          floorSize: {
+            "@type": "QuantitativeValue",
+            value: parseCount(home.sqft),
+            unitCode: "FTK",
+            unitText: "sq ft",
+          },
+        }),
+    ...(parseCount(home.yearBuilt) == null ? {} : { yearBuilt: parseCount(home.yearBuilt) }),
     ...(isTbd(home.purchasePrice)
       ? {}
       : {
@@ -100,31 +170,8 @@ export default async function HomeDetailPage({ params }: { params: Promise<Param
           </div>
           {home.paymentOptions?.length ? (
             <>
+              <HouseFacts home={home} />
               <HomeTerms home={home} />
-              <dl className="facts">
-                {(
-                  [
-                    ["Bedrooms", home.beds],
-                    ["Bathrooms", home.baths],
-                    ["Square feet", home.sqft],
-                  ] as const
-                ).map(([label, value]) => (
-                  <div className="fact" key={label}>
-                    <dt>{label}</dt>
-                    <dd className={isTbd(value) ? "is-tbd" : undefined}>
-                      {isTbd(value) ? (
-                        <>
-                          <span className="sr-only">Not posted yet. </span>
-                          TBD
-                          <small>Not posted yet</small>
-                        </>
-                      ) : (
-                        value
-                      )}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
             </>
           ) : (
             <FactList home={home} />
