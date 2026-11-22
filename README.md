@@ -69,7 +69,7 @@ If a deploy fails after an edit, open the file again and look for a missing comm
 
 ## Change the phone number or email
 
-Those live in `data/site.json`, not all over the site. Edit that file the same way (pencil, then commit). Use the phone number people should see, and `phoneTel` with a `+1` and no spaces or dashes, like `+13075549940`.
+Those live in `data/site.json`, not all over the site. Edit that file the same way (pencil, then commit). Use the phone number people should see, and `phoneTel` with a `+1` and no spaces or dashes, like `+13075545423`. The number on the site today is 307-554-5423.
 
 ## Where the forms go
 
@@ -84,25 +84,31 @@ These forms are on the site:
 
 Each form tells the person that you only use it to reply, and links to the privacy policy. None of them promise that someone is approved.
 
-### One-time setup so the emails reach you
+### One-time setup so the emails reach both of you
 
-The live site sends each form to [Web3Forms](https://web3forms.com), which emails **gregg@rootedpathhomesllc.com**. Web3Forms has a free plan. Do this once:
+Every form note is emailed to **gregg@rootedpathhomesllc.com** and **kristi@rootedpathhomesllc.com**.
+
+The site uses [Web3Forms](https://web3forms.com), which has a free plan. On that free plan, one form can email only one person. Copying a second person (they call it CC) is a paid feature, so we do not use it. Instead, the visitor's browser sends the same note twice: once with Gregg's free key, and once with Kristi's free key. Each of you gets your own email. You each need your own key. Do this once:
 
 1. Go to [https://web3forms.com](https://web3forms.com).
-2. Enter `gregg@rootedpathhomesllc.com` and create an access key.
-3. Open that email and copy the key. Check the spam folder if it is not in the inbox.
+2. Enter `gregg@rootedpathhomesllc.com` and create an access key. Open that inbox and copy the key. Check spam if it is not there.
+3. On Web3Forms, create a second access key with `kristi@rootedpathhomesllc.com`. Open Kristi's inbox and copy that key. It will be a different key from Gregg's.
 4. In Vercel (the free host, set up in the next section), open the project.
 5. Go to **Settings**, then **Environment Variables**.
-6. Add a variable named `WEB3FORMS_ACCESS_KEY`. Paste the key as the value. Apply it to Production (and Preview, if you want forms to work on test links too).
-7. Open **Deployments**, click the latest one, and choose **Redeploy**. A new variable does not take effect until you redeploy.
+6. Add `WEB3FORMS_ACCESS_KEY` and paste Gregg's key.
+7. Add `WEB3FORMS_KRISTI_ACCESS_KEY` and paste Kristi's key.
+8. Apply both to Production, and to Preview if you want forms to work on test links too.
+9. Open **Deployments**, click the latest one, and choose **Redeploy**. New variables do not take effect until you redeploy.
 
-The key is not a password to your email, but it is still not something to paste into GitHub or into a text message. Vercel keeps it. This repository never contains it.
+Both keys are required. If either one is missing, the live form does not send the note at all. It asks the person to call, so a lead is never delivered to only one of you by mistake.
+
+The keys are not passwords to your email, but do not paste them into GitHub or into a text message. Vercel keeps them. This repository never contains them.
 
 ### How to read a submission
 
-- The email arrives at **gregg@rootedpathhomesllc.com**. The subject says which form it was, and which house when that matters.
-- Web3Forms also keeps a copy in their dashboard, linked from the same email.
-- If you are trying the site on your own computer and you have not set the key, the form still says it went through, and a copy is saved in a private folder named `.data` on that computer. That folder is not uploaded to GitHub. On the live site, do not skip the key. Without it, the form tells people to call instead of pretending the email was sent.
+- The same email arrives in **both** inboxes: gregg@rootedpathhomesllc.com and kristi@rootedpathhomesllc.com. The subject says which form it was, and which house when that matters.
+- Web3Forms also keeps a copy in the dashboard linked from each email.
+- If you are trying the site on your own computer and you have not set either key, the form still says it went through, and one copy is saved in a private folder named `.data` on that computer. That folder is not uploaded to GitHub. On the live site, set both keys before you share the link.
 
 ## Put the site on the internet for free
 
@@ -112,7 +118,7 @@ This uses Vercel, which is free for a site like this. You need a free GitHub acc
 2. Click **Add New…**, then **Project**.
 3. Find **Rooted-Path-Homes-LLC** and click **Import**.
 4. Leave the settings as Vercel detects them (Framework Preset: Next.js). Do not change the build command.
-5. Open **Environment Variables** on that same screen and add `WEB3FORMS_ACCESS_KEY` if you already have the key. You can also add it right after the first deploy, then redeploy.
+5. Open **Environment Variables** on that same screen and add both `WEB3FORMS_ACCESS_KEY` and `WEB3FORMS_KRISTI_ACCESS_KEY` if you already have them. You can also add them right after the first deploy, then redeploy.
 6. Click **Deploy**. The first build takes a minute or two.
 7. When it finishes, Vercel gives you a free address that ends in `.vercel.app`. Open it on your phone.
 

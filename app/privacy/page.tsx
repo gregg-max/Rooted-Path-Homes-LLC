@@ -42,7 +42,8 @@ export default function PrivacyPage() {
       </p>
       <h2>Who else sees it</h2>
       <p>
-        The form is delivered by Web3Forms, a form service that emails the submission to us. Their
+        The form is delivered by Web3Forms, a form service that emails the same submission to
+        gregg@rootedpathhomesllc.com and kristi@rootedpathhomesllc.com. Their
         own privacy terms cover that handoff. The website itself is hosted so it can be on the
         internet (we use Vercel for that). Those companies see the technical bits required to
         deliver the page and the email. They are not allowed, by us, to use your note for their

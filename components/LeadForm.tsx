@@ -109,7 +109,7 @@ export function LeadForm({
         error?: string;
         fieldErrors?: Record<string, string>;
         delivery?: string;
-        forward?: ForwardBody;
+        forwards?: ForwardBody[];
       } | null;
 
       if (!response.ok || !result?.ok) {
@@ -120,18 +120,24 @@ export function LeadForm({
       }
 
       if (result.delivery === "web3forms") {
-        if (!result.forward || !isAllowedForwardUrl(result.forward.url)) {
-          setFormError(`We couldn't send that. ${fallback()}`);
+        const forwards = result.forwards ?? [];
+        if (forwards.length < 2 || forwards.some((item) => !isAllowedForwardUrl(item.url))) {
+          setFormError(`We couldn't send that to both of us. ${fallback()}`);
           return;
         }
-        const sent = await fetch(result.forward.url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify(result.forward.body),
-        });
-        const provider = (await sent.json().catch(() => null)) as { success?: boolean } | null;
-        if (!sent.ok || provider?.success !== true) {
-          setFormError(`We couldn't send that just now. ${fallback()}`);
+        const deliveries = await Promise.all(
+          forwards.map(async (item) => {
+            const sent = await fetch(item.url, {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify(item.body),
+            });
+            const provider = (await sent.json().catch(() => null)) as { success?: boolean } | null;
+            return sent.ok && provider?.success === true;
+          }),
+        );
+        if (deliveries.some((ok) => !ok)) {
+          setFormError(`We couldn't send that to both of us just now. ${fallback()}`);
           return;
         }
       }

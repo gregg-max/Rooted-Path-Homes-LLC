@@ -7,8 +7,7 @@ import { mailHref, siteConfig, telHref } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Let's Talk",
-  description:
-    "Call, email, or write Rooted Path Homes. Gregg and Kristi Arnell answer. Phone 307-554-9940. Email gregg@rootedpathhomesllc.com. Southern Illinois, around Murphysboro.",
+  description: `Call, email, or write Rooted Path Homes. Gregg and Kristi Arnell answer. Phone ${siteConfig.phoneDisplay}. Email ${siteConfig.email}. Southern Illinois, around Murphysboro.`,
   alternates: { canonical: "/contact" },
 };
 

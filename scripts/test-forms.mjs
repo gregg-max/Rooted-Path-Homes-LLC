@@ -89,16 +89,23 @@ for (const sample of samples) {
   check(status === 200 && payload?.ok === true, `${sample.form} accepted (${status})`);
   if (forwardMode) {
     check(payload?.delivery === "web3forms", `${sample.form} asked the browser to forward`);
-    const sent = await fetch(payload.forward.url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify(payload.forward.body),
-    });
-    const provider = await sent.json().catch(() => null);
-    check(sent.ok && provider?.success === true, `${sample.form} reached the form service`);
-    check(!JSON.stringify(payload.forward.body).includes("WEB3FORMS"), `${sample.form} body has no secret name leak`);
-    check(typeof payload.forward.body.access_key === "string", `${sample.form} forward includes an access key`);
-    check(payload.forward.body.message.includes(sample.name), `${sample.form} message includes the name`);
+    const forwards = payload?.forwards;
+    check(Array.isArray(forwards) && forwards.length === 2, `${sample.form} sends to both inboxes`);
+    const keys = new Set();
+    for (const item of forwards || []) {
+      const sent = await fetch(item.url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(item.body),
+      });
+      const provider = await sent.json().catch(() => null);
+      check(sent.ok && provider?.success === true, `${sample.form} reached the form service`);
+      check(!JSON.stringify(item.body).includes("WEB3FORMS"), `${sample.form} body has no secret name leak`);
+      check(typeof item.body.access_key === "string" && item.body.access_key.length > 0, `${sample.form} forward includes an access key`);
+      check(item.body.message.includes(sample.name), `${sample.form} message includes the name`);
+      keys.add(item.body.access_key);
+    }
+    check(keys.size === 2, `${sample.form} uses a different key for each person`);
   } else {
     check(payload?.delivery === "local", `${sample.form} saved locally`);
   }

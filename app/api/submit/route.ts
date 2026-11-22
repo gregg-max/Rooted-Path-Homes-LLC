@@ -88,8 +88,11 @@ export async function POST(request: Request) {
     return json({ ok: false, error: parsed.error, fieldErrors: parsed.fieldErrors }, 400);
   }
 
-  const accessKey = process.env.WEB3FORMS_ACCESS_KEY?.trim();
-  if (accessKey) {
+  const accessKeys = [
+    process.env.WEB3FORMS_ACCESS_KEY?.trim(),
+    process.env.WEB3FORMS_KRISTI_ACCESS_KEY?.trim(),
+  ];
+  if (accessKeys.some(Boolean)) {
     const endpoint = process.env.WEB3FORMS_ENDPOINT?.trim() || "https://api.web3forms.com/submit";
     if (!isAllowedForwardUrl(endpoint)) {
       return json(
@@ -97,10 +100,19 @@ export async function POST(request: Request) {
         500,
       );
     }
+    if (accessKeys.some((key) => !key)) {
+      return json(
+        {
+          ok: false,
+          error: `This form is only partly connected to email, so it was not sent. ${callFallback()}`,
+        },
+        503,
+      );
+    }
     return json({
       ok: true,
       delivery: "web3forms",
-      forward: {
+      forwards: accessKeys.map((accessKey) => ({
         url: endpoint,
         body: {
           access_key: accessKey,
@@ -111,7 +123,7 @@ export async function POST(request: Request) {
           replyto: parsed.email,
           message: parsed.message,
         },
-      },
+      })),
     });
   }
 
